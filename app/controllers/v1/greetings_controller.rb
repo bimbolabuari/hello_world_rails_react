@@ -1,9 +1,7 @@
 module V1
   class GreetingsController < ApplicationController
     def index
-      random = Random.new
-      limit = Greeting.all.length
-      @greeting = Greeting.find(random.rand(1..limit)).description
+      @greeting = Greeting.offset(rand(Greeting.count)).first || 'No greeting available yet'
       render json: @greeting
     end
   end
